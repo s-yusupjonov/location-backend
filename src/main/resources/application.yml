@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: employee-location-tracking-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/location_tracking}
+    username: ${DB_USERNAME:sanjar}
+    password: ${DB_PASSWORD:12345}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+server:
+  port: ${SERVER_PORT:8082}
+  time-zone: ${SERVER_TIME_ZONE:UTC}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-secret-override-in-prod}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+geocoding:
+  yandex:
+    api-key: ${YANDEX_GEOCODER_API_KEY:}
+    base-url: ${YANDEX_GEOCODER_BASE_URL:https://geocode-maps.yandex.ru/1.x/}
+
+tracking:
+  stop-detection:
+    radius-meters: ${STOP_RADIUS_METERS:100}
+    min-duration-minutes: ${STOP_MIN_DURATION_MINUTES:10}
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %5p [%thread] [transactionId=%X{transactionId:-}] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+    file: "%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %5p [%thread] [transactionId=%X{transactionId:-}] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
