@@ -68,10 +68,12 @@ it exists purely so the dashboard has a way in on a fresh environment.
 ## Reference data
 
 `regions` and `districts` are seeded with Uzbekistan's full administrative
-division (`V3__seed_uzbekistan_regions_and_districts.sql`): the Republic of
-Karakalpakstan, the 12 regions, and Tashkent City, each with its districts —
-175 districts in total. Departments and positions are left empty for the
-admin to define per organization.
+division: the Republic of Karakalpakstan, the 12 regions, and Tashkent City, each
+with its districts — 175 districts in total. `V3__seed_uzbekistan_regions_and_districts.sql`
+seeded them in English; `V4__reseed_regions_and_districts_uzbek.sql` replaces that
+data with Uzbek (Latin) names (e.g. `Toshkent shahri`, `Chilonzor tumani`) and
+re-links any employees to their new region/district rows. Departments and positions
+are left empty for the admin to define per organization.
 
 ## Pointing the Android app at this backend
 
