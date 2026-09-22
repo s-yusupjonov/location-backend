@@ -114,7 +114,7 @@ final class AddressLocalizer {
                 return properName.isBlank() ? entry.getValue() : properName + " " + entry.getValue();
             }
         }
-        return transliterate(trimmed) + " ko'chasi";
+        return transliterate(trimmed);
     }
 
     static String localizeLocality(String placeComponent) {

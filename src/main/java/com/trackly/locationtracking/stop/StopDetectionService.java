@@ -2,7 +2,7 @@ package com.trackly.locationtracking.stop;
 
 import com.trackly.locationtracking.employee.Employee;
 import com.trackly.locationtracking.employee.EmployeeService;
-import com.trackly.locationtracking.geocoding.YandexGeocodingClient;
+import com.trackly.locationtracking.geocoding.NominatimGeocodingClient;
 import com.trackly.locationtracking.location.LocationPing;
 import com.trackly.locationtracking.location.LocationPingRepository;
 import com.trackly.locationtracking.stop.dto.StopResponse;
@@ -26,22 +26,22 @@ public class StopDetectionService {
     private final EmployeeService employeeService;
     private final LocationPingRepository locationPingRepository;
     private final StopRepository stopRepository;
-    private final YandexGeocodingClient yandexGeocodingClient;
+    private final NominatimGeocodingClient nominatimGeocodingClient;
     private final StopMapper stopMapper;
     private final StopDetectionProperties properties;
     private final ZoneId serverZoneId;
 
     public StopDetectionService(EmployeeService employeeService,
-                                 LocationPingRepository locationPingRepository,
-                                 StopRepository stopRepository,
-                                 YandexGeocodingClient yandexGeocodingClient,
-                                 StopMapper stopMapper,
-                                 StopDetectionProperties properties,
-                                 @Value("${server.time-zone}") String serverTimeZone) {
+                                LocationPingRepository locationPingRepository,
+                                StopRepository stopRepository,
+                                NominatimGeocodingClient nominatimGeocodingClient,
+                                StopMapper stopMapper,
+                                StopDetectionProperties properties,
+                                @Value("${server.time-zone}") String serverTimeZone) {
         this.employeeService = employeeService;
         this.locationPingRepository = locationPingRepository;
         this.stopRepository = stopRepository;
-        this.yandexGeocodingClient = yandexGeocodingClient;
+        this.nominatimGeocodingClient = nominatimGeocodingClient;
         this.stopMapper = stopMapper;
         this.properties = properties;
         this.serverZoneId = ZoneId.of(serverTimeZone);
@@ -124,7 +124,7 @@ public class StopDetectionService {
         stop.setArrivalTime(candidate.arrivalTime());
         stop.setDepartureTime(candidate.departureTime());
         stop.setDurationMinutes(candidate.durationMinutes());
-        stop.setAddress(yandexGeocodingClient.reverseGeocode(candidate.latitude(), candidate.longitude()));
+        stop.setAddress(nominatimGeocodingClient.reverseGeocode(candidate.latitude(), candidate.longitude()));
         return stopRepository.save(stop);
     }
 
