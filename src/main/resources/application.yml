@@ -35,9 +35,9 @@ cors:
   allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
 
 geocoding:
-  yandex:
-    api-key: ${YANDEX_GEOCODER_API_KEY:}
-    base-url: ${YANDEX_GEOCODER_BASE_URL:https://geocode-maps.yandex.ru/1.x/}
+  nominatim:
+    base-url: ${NOMINATIM_BASE_URL:https://nominatim.openstreetmap.org/reverse}
+    contact-email: ${NOMINATIM_CONTACT_EMAIL:}
 
 tracking:
   stop-detection:
